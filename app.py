@@ -5,6 +5,9 @@ import numpy as np
 from datetime import datetime
 import plotly.express as px
 import re
+import os, streamlit as st
+
+
 
 st.set_page_config(page_title="HappyThings Dashboard", layout="wide")
 
@@ -14,6 +17,9 @@ if "logged_in" not in st.session_state:
 
 def login_form():
     with st.form("login"):
+        ADMIN_USER = st.secrets.get("DASH_USER", os.getenv("DASH_USER", "admin"))
+ADMIN_PASS = st.secrets.get("DASH_PASS", os.getenv("DASH_PASS", "admin"))
+
         u = st.text_input("Usuario", value="", placeholder="admin")
         p = st.text_input("Contraseña", value="", type="password", placeholder="ventasHappy!")
         submitted = st.form_submit_button("Ingresar")
