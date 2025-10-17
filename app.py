@@ -12,16 +12,25 @@ import os, streamlit as st
 st.set_page_config(page_title="HappyThings Dashboard", layout="wide")
 
 # ---------- Simple Auth (demo only) ----------
+
+        ADMIN_USER = st.secrets.get("DASH_USER", os.getenv("DASH_USER", "admin"))
+ADMIN_PASS = st.secrets.get("DASH_PASS", os.getenv("DASH_PASS", "admin"))
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
 def login_form():
     with st.form("login"):
-        ADMIN_USER = st.secrets.get("DASH_USER", os.getenv("DASH_USER", "admin"))
-ADMIN_PASS = st.secrets.get("DASH_PASS", os.getenv("DASH_PASS", "admin"))
+        if submitted:
+    if u == ADMIN_USER and p == ADMIN_PASS:
+        st.session_state.logged_in = True
+        st.success("Ingreso correcto ✅")
+        st.rerun()
+    else:
+        st.error("Usuario/contraseña inválidos")
 
-        u = st.text_input("Usuario", value="", placeholder="admin")
-        p = st.text_input("Contraseña", value="", type="password", placeholder="ventasHappy!")
+
+        u = st.text_input("Usuario", value="")
+        p = st.text_input("Contraseña", value="", type="password"
         submitted = st.form_submit_button("Ingresar")
         if submitted:
             if u == "admin" and p == "ventasHappy!":
